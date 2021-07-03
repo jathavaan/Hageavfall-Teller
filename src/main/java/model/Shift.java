@@ -1,3 +1,5 @@
+package model;
+
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -145,10 +147,10 @@ public class Shift implements Comparable<Shift> {
                 break;
             default:
                 if (25_200L > secondsToday)
-                    throw new IllegalStateException("Shift cannot start before 7:00");
+                    throw new IllegalStateException("model.Shift cannot start before 7:00");
 
                 if (77_400L < secondsToday)
-                    throw new IllegalStateException("Shift cannot start after 21:30");
+                    throw new IllegalStateException("model.Shift cannot start after 21:30");
 
                 if (secondsToday < 52_200L) {
                     startTime = intToTime(7, 0);
@@ -197,10 +199,10 @@ public class Shift implements Comparable<Shift> {
                 break;
             default:
                 if (25_200L > secondsToday)
-                    throw new IllegalStateException("Shift cannot end before 7:00");
+                    throw new IllegalStateException("model.Shift cannot end before 7:00");
 
                 if (77_400L < secondsToday)
-                    throw new IllegalStateException("Shift cannot end after 21:30");
+                    throw new IllegalStateException("model.Shift cannot end after 21:30");
 
                 if (secondsToday < 52_200L) {
                     endTime = intToTime(14, 30);
@@ -215,7 +217,7 @@ public class Shift implements Comparable<Shift> {
     }
 
     /**
-     * Sammenligner to Shift objekter
+     * Sammenligner to model.Shift objekter
      *
      * @param o
      * @return neg om this er større enn o, pos om this er mindre enn o, og 0 hvis de er like
@@ -253,12 +255,12 @@ public class Shift implements Comparable<Shift> {
 
     private void shiftCodeValidation(String shiftCode) {
         if (shiftCode == null || shiftCode.isBlank())
-            throw new IllegalArgumentException("Shift code cannot be null or blank");
+            throw new IllegalArgumentException("model.Shift code cannot be null or blank");
 
         shiftCode = shiftCode.toUpperCase();
 
         if (!isValidShiftCode(shiftCode))
-            throw new IllegalArgumentException("Shift code is invalid: " + shiftCode);
+            throw new IllegalArgumentException("model.Shift code is invalid: " + shiftCode);
     }
 
     /**

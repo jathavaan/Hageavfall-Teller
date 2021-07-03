@@ -1,5 +1,9 @@
+package model;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Counter {
@@ -35,7 +39,44 @@ public class Counter {
         return false;
     }
 
+    public Shift currentShift() {
+        Iterator<Shift> it = getShiftList().iterator();
+
+        while(it.hasNext()) {
+            Shift shift = it.next();
+            if (!it.hasNext()) {
+                return shift;
+            }
+        }
+
+        return null;
+    }
+
     public ArrayList<Shift> getShiftList() {
         return new ArrayList<>(this.shiftList);
+    }
+
+    public void run() throws InterruptedException {
+        Counter counter = new Counter();
+        Shift shift = new Shift();
+
+        while (true) {
+
+            if (counter.clearShiftList())
+                System.out.println("Cleared shift list");
+
+            if (shift.getEndTime().equals(LocalDateTime.now()))
+                shift = new Shift();
+
+            if (counter.addShift(shift)) {
+                System.out.println("model.Shift added: " + shift);
+            } else {
+                shift.incrementCount();
+                System.out.println(shift);
+            }
+
+            TimeUnit.SECONDS.sleep(1);
+
+        }
     }
 }
