@@ -9,6 +9,12 @@ public class Shift implements Comparable<Shift> {
     private final LocalDateTime endTime;
     private int count;
 
+    public Shift(String name, LocalDateTime start, LocalDateTime end) {
+        this.shiftCode = name;
+        this.startTime = start;
+        this.endTime = end;
+    }
+
     /**
      * Følgende verdier skal defineres i konstruktøren:
      * shiftCode, startTime, endTime
@@ -37,7 +43,7 @@ public class Shift implements Comparable<Shift> {
         LocalDateTime now = LocalDateTime.now();
         int year = now.getYear();
         int month = now.getMonthValue();
-        int day = now.getDayOfMonth();
+        int day = 3; // now.getDayOfMonth();
 
         return LocalDateTime.of(year, month, day, hrs, min);
     }
@@ -80,12 +86,22 @@ public class Shift implements Comparable<Shift> {
         return count;
     }
 
+    public void incrementCount() {
+        if (this.count + 1 < 0)
+            throw new IllegalArgumentException("Count cannot be a negative number");
+
+        this.count += 1;
+    }
+
+    public void decrementCount() {
+        if (this.count - 1 < 0)
+            throw new IllegalArgumentException("Count cannot be a negative number");
+
+        this.count -= 1;
+    }
 
     // Generering
 
-    public void incrementCount() {
-        this.count += 1;
-    }
 
     /**
      * Generer shiftCode basert på hvilken dag det er og hva klokken er
@@ -101,7 +117,7 @@ public class Shift implements Comparable<Shift> {
 
         switch (day) {
             case 7:
-                throw new IllegalStateException("No shift on sundays");
+                // throw new IllegalStateException("No shift on sundays");
             case 6:
             case 5:
                 return "FR-LØR-T";
@@ -127,6 +143,7 @@ public class Shift implements Comparable<Shift> {
         switch (day) {
             case 7:
                 throw new IllegalStateException("There are no shifts on sundays");
+                // startTime = intToTime(10,0); // denne skal fjernes
             case 6:
                 if (30_600L > secondsToday)
                     throw new IllegalStateException("Saturday shift cannot start before 08:30");
@@ -147,10 +164,10 @@ public class Shift implements Comparable<Shift> {
                 break;
             default:
                 if (25_200L > secondsToday)
-                    throw new IllegalStateException("model.Shift cannot start before 7:00");
+                    throw new IllegalStateException("Shift cannot start before 7:00");
 
                 if (77_400L < secondsToday)
-                    throw new IllegalStateException("model.Shift cannot start after 21:30");
+                    throw new IllegalStateException("Shift cannot start after 21:30");
 
                 if (secondsToday < 52_200L) {
                     startTime = intToTime(7, 0);
@@ -179,6 +196,7 @@ public class Shift implements Comparable<Shift> {
         switch (day) {
             case 7:
                 throw new IllegalStateException("There are no shifts on sundays");
+                // endTime = intToTime(16,0); // denne skal fjernes
             case 6:
                 if (30_600L > secondsToday)
                     throw new IllegalStateException("Saturday shift cannot end before 08:30");
@@ -217,7 +235,7 @@ public class Shift implements Comparable<Shift> {
     }
 
     /**
-     * Sammenligner to model.Shift objekter
+     * Sammenligner to Shift objekter
      *
      * @param o
      * @return neg om this er større enn o, pos om this er mindre enn o, og 0 hvis de er like
@@ -247,11 +265,13 @@ public class Shift implements Comparable<Shift> {
 
     // Valideringsmetoder
 
+    /**
     @Override
     public String toString() {
-        return getShiftCode() + ": [" + getStartTime() +  " -> " + getEndTime() + "]"
+        return getShiftCode() + ": [" + getStartTime() + " -> " + getEndTime() + "]"
                 + "\nCount: " + getCount();
     }
+    */
 
     private void shiftCodeValidation(String shiftCode) {
         if (shiftCode == null || shiftCode.isBlank())

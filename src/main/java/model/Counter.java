@@ -42,7 +42,7 @@ public class Counter {
     public Shift currentShift() {
         Iterator<Shift> it = getShiftList().iterator();
 
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Shift shift = it.next();
             if (!it.hasNext()) {
                 return shift;
@@ -59,24 +59,20 @@ public class Counter {
     public void run() throws InterruptedException {
         Counter counter = new Counter();
         Shift shift = new Shift();
+        if (counter.clearShiftList())
+            System.out.println("Cleared shift list");
 
-        while (true) {
+        if (shift.getEndTime().equals(LocalDateTime.now()))
+            shift = new Shift();
 
-            if (counter.clearShiftList())
-                System.out.println("Cleared shift list");
-
-            if (shift.getEndTime().equals(LocalDateTime.now()))
-                shift = new Shift();
-
-            if (counter.addShift(shift)) {
-                System.out.println("model.Shift added: " + shift);
-            } else {
-                shift.incrementCount();
-                System.out.println(shift);
-            }
-
-            TimeUnit.SECONDS.sleep(1);
-
+        if (counter.addShift(shift)) {
+            System.out.println("Shift added: " + shift);
+        } else {
+            shift.incrementCount();
+            System.out.println(shift);
         }
+
+        TimeUnit.SECONDS.sleep(1);
+
     }
 }
