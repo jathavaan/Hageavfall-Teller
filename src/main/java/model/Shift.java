@@ -1,7 +1,6 @@
 package model;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 public class Shift implements Comparable<Shift> {
     private final String shiftCode;
@@ -43,7 +42,7 @@ public class Shift implements Comparable<Shift> {
         LocalDateTime now = LocalDateTime.now();
         int year = now.getYear();
         int month = now.getMonthValue();
-        int day = 3; // now.getDayOfMonth();
+        int day = now.getDayOfMonth();
 
         return LocalDateTime.of(year, month, day, hrs, min);
     }
@@ -117,7 +116,7 @@ public class Shift implements Comparable<Shift> {
 
         switch (day) {
             case 7:
-                // throw new IllegalStateException("No shift on sundays");
+                throw new IllegalStateException("No shift on sundays");
             case 6:
             case 5:
                 return "FR-LØR-T";
@@ -143,7 +142,6 @@ public class Shift implements Comparable<Shift> {
         switch (day) {
             case 7:
                 throw new IllegalStateException("There are no shifts on sundays");
-                // startTime = intToTime(10,0); // denne skal fjernes
             case 6:
                 if (30_600L > secondsToday)
                     throw new IllegalStateException("Saturday shift cannot start before 08:30");
@@ -177,7 +175,7 @@ public class Shift implements Comparable<Shift> {
                 break;
         }
 
-        startTimeValidation(startTime);
+        timeValidation(startTime);
         return startTime;
     }
 
@@ -196,7 +194,6 @@ public class Shift implements Comparable<Shift> {
         switch (day) {
             case 7:
                 throw new IllegalStateException("There are no shifts on sundays");
-                // endTime = intToTime(16,0); // denne skal fjernes
             case 6:
                 if (30_600L > secondsToday)
                     throw new IllegalStateException("Saturday shift cannot end before 08:30");
@@ -217,10 +214,10 @@ public class Shift implements Comparable<Shift> {
                 break;
             default:
                 if (25_200L > secondsToday)
-                    throw new IllegalStateException("model.Shift cannot end before 7:00");
+                    throw new IllegalStateException("Shift cannot end before 7:00");
 
                 if (77_400L < secondsToday)
-                    throw new IllegalStateException("model.Shift cannot end after 21:30");
+                    throw new IllegalStateException("Shift cannot end after 21:30");
 
                 if (secondsToday < 52_200L) {
                     endTime = intToTime(14, 30);
@@ -230,7 +227,7 @@ public class Shift implements Comparable<Shift> {
                 break;
         }
 
-        endTimeValidation(endTime);
+        timeValidation(endTime);
         return endTime;
     }
 
@@ -258,20 +255,22 @@ public class Shift implements Comparable<Shift> {
      * @return seconds
      */
     private long localDateTimeToSeconds(LocalDateTime time) {
-        ZoneOffset zoneOffset = ZoneOffset.UTC;
         LocalDateTime midnight = intToTime(0, 0);
-        return time.toEpochSecond(zoneOffset) - midnight.toEpochSecond(zoneOffset);
+
+        long timeSeconds = time.getHour() * 3600 + time.getMinute() * 60 + time.getSecond();
+        long midnightSeconds = midnight.getSecond() * 3600 + midnight.getMinute() * 60 + midnight.getSecond();
+
+        return timeSeconds - midnightSeconds;
     }
 
     // Valideringsmetoder
 
     /**
-    @Override
-    public String toString() {
-        return getShiftCode() + ": [" + getStartTime() + " -> " + getEndTime() + "]"
-                + "\nCount: " + getCount();
-    }
-    */
+     * @Override public String toString() {
+     * return getShiftCode() + ": [" + getStartTime() + " -> " + getEndTime() + "]"
+     * + "\nCount: " + getCount();
+     * }
+     */
 
     private void shiftCodeValidation(String shiftCode) {
         if (shiftCode == null || shiftCode.isBlank())
@@ -293,25 +292,8 @@ public class Shift implements Comparable<Shift> {
         return true;
     }
 
-    private void startTimeValidation(LocalDateTime startTime) {
-        if (startTime == null)
-            throw new IllegalArgumentException("Start time cannot be null");
-
-        if (startTime.isBefore(intToTime(7, 0)))
-            throw new IllegalArgumentException("Start time cannot be before 07:00");
-
-        if (startTime.isAfter(intToTime(14, 15)))
-            throw new IllegalArgumentException("Start time cannot be after 14:15");
-    }
-
-    private void endTimeValidation(LocalDateTime endTime) {
+    private void timeValidation(LocalDateTime endTime) {
         if (endTime == null)
             throw new IllegalArgumentException("End time cannot be null");
-
-        if (endTime.isBefore(intToTime(14, 15)))
-            throw new IllegalArgumentException("End time cannot be before 14:15");
-
-        if (endTime.isAfter(intToTime(21, 30)))
-            throw new IllegalArgumentException("End time cannot be after 21:30");
     }
 }

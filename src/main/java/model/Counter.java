@@ -32,7 +32,7 @@ public class Counter {
     }
 
     public boolean clearShiftList() {
-        if (LocalDateTime.now().equals(Shift.intToTime(0, 0))) {
+        if (LocalDateTime.now().isEqual(Shift.intToTime(0, 0))) {
             shiftList.clear();
             return true;
         }

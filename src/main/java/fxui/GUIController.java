@@ -32,44 +32,51 @@ public class GUIController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             new Thread(() -> {
-                /**
-                 * Problem nå:
-                 * Text blir automatisk satt tilbake til N/A i initialize
-                 */
+                try {
+                    Shift shift = new Shift();
+                    while (true) {
+                        if (counter.clearShiftList()) {
+                            outputText.setText("Cleared shift list");
+                            firstShiftNameLabel.setText("N/A");
+                            secondShiftNameLabel.setText("N/A");
+                            firstShiftCountLabel.setText("N/A");
+                            secondShiftCountLabel.setText("N/A");
+                        }
 
-                Shift shift = new Shift("Dette er en test", Shift.intToTime(7, 15), Shift.intToTime(15, 0));
-                while (true) {
+                        if (counter.getShiftList().size() > 0) {
+                            if (counter.currentShift().getEndTime().isBefore(LocalDateTime.now()))
+                                shift = new Shift();
+                        }
 
-                    if (counter.clearShiftList())
-                        outputText.setText("Cleared shift list");
+                        if (counter.addShift(shift)) {
+                            firstShiftNameLabel.setText(shift.getShiftCode());
 
-                    if (counter.getShiftList().size() > 0) {
-                        if (counter.currentShift().getEndTime().isEqual(LocalDateTime.now()))
-                            shift = new Shift();
-                    }
+                            if (counter.getShiftList().size() >= 2) {
+                                secondShiftNameLabel.setText(shift.getShiftCode());
+                            }
+                            outputText.setText("A new shift has started");
+                        }
 
-                    if (!counter.addShift(shift)) {
-                        shift.incrementCount();
-                        firstShiftNameLabel.setText(shift.getShiftCode());
-                        // firstShiftCountLabel.setText(String.valueOf(shift.getCount()));
-                        outputText.setText("A new shift has started");
-                        if (counter.getShiftList().size() >= 2) {
-                            secondShiftNameLabel.setText(shift.getShiftCode());
-                            // secondShiftCountLabel.setText(String.valueOf(shift.getCount()));
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(2500L);
+                            shift.incrementCount();
+                            firstShiftCountLabel.setText(String.valueOf(shift.getCount()));
+                        } catch (InterruptedException e) {
+                            outputText.setText("Something went wrong");
                         }
                     }
-
-                    try {
-                        TimeUnit.MILLISECONDS.sleep(1000L);
-                    } catch (InterruptedException e) {
-                        outputText.setText("Something went wrong");
-                    }
-
+                } catch (IllegalStateException e) {
+                    outputText.setText(e.getMessage());
+                } catch (IllegalArgumentException e) {
+                    outputText.setText(e.getMessage());
+                } catch (NullPointerException e) {
+                    outputText.setText("No shift has started, try again during opening times");
+                } catch (Exception e) {
+                    outputText.setText("Something went wrong");
+                    e.printStackTrace();
                 }
 
             }).start();
-
-
 
         } catch (IllegalStateException e) {
             outputText.setText(e.getMessage());
@@ -78,37 +85,72 @@ public class GUIController implements Initializable {
         } catch (NullPointerException e) {
             outputText.setText("No shift has started, try again during opening times");
         } catch (Exception e) {
-            e.printStackTrace();
+            outputText.setText("Something went wrong");
         }
     }
 
     public void onIncrease() {
         try {
+            Shift s = new Shift(); // Bare for å kunne kaste evt. feilmld
             Shift currentShift = counter.currentShift();
             currentShift.incrementCount();
             initialize(null, null);
-            outputText.setText("Count has been overwritten");
-        } catch (NullPointerException e) {
-            outputText.setText("Cannot increase count right now");
-        } catch (Exception e) {
+            if (counter.getShiftList().size() == 1) {
+                firstShiftCountLabel.setText(String.valueOf(currentShift.getCount()));
+            } else if (counter.getShiftList().size() > 1) {
+                secondShiftCountLabel.setText(String.valueOf(currentShift.getCount()));
+            }
+            outputText.setText("Count has been manually increased");
+        } catch (IllegalStateException e) {
             outputText.setText(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            outputText.setText(e.getMessage());
+        } catch (NullPointerException e) {
+            outputText.setText("No shift has started, try again during opening times");
+        } catch (Exception e) {
+            outputText.setText("Something went wrong");
         }
     }
 
     public void onDecrease() {
         try {
+            Shift s = new Shift(); // Bare for å kunne kaste evt. feilmld
             Shift currentShift = counter.currentShift();
             currentShift.decrementCount();
             initialize(null, null);
-            outputText.setText("Count has been overwritten");
-        } catch (NullPointerException e) {
-            outputText.setText("Cannot decrease count right now");
-        } catch (Exception e) {
+            if (counter.getShiftList().size() == 1) {
+                firstShiftCountLabel.setText(String.valueOf(currentShift.getCount()));
+            } else if (counter.getShiftList().size() > 1) {
+                secondShiftCountLabel.setText(String.valueOf(currentShift.getCount()));
+            }
+            outputText.setText("Count has been manually decreased");
+        } catch (IllegalStateException e) {
             outputText.setText(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            outputText.setText(e.getMessage());
+        } catch (NullPointerException e) {
+            outputText.setText("No shift has started, try again during opening times");
+        } catch (Exception e) {
+            outputText.setText("Something went wrong");
         }
     }
 
     public void registeredCar() {
-
+        try {
+            // metode som kobler opp til Rasberry PI
+            if (counter.getShiftList().size() == 1) {
+                firstShiftCountLabel.setText("");
+            } else if (counter.getShiftList().size() > 1) {
+                secondShiftCountLabel.setText("");
+            }
+        } catch (IllegalStateException e) {
+            outputText.setText(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            outputText.setText(e.getMessage());
+        } catch (NullPointerException e) {
+            outputText.setText("No shift has started, try again during opening times");
+        } catch (Exception e) {
+            outputText.setText("Something went wrong");
+        }
     }
 }
