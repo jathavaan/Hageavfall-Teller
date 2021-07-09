@@ -8,6 +8,12 @@ public class Shift implements Comparable<Shift> {
     private final LocalDateTime endTime;
     private int count;
 
+    /**
+     * Konstruktør for testing
+     * @param name skiftnavn
+     * @param start starten av skift
+     * @param end slutten av skift
+     */
     public Shift(String name, LocalDateTime start, LocalDateTime end) {
         this.shiftCode = name;
         this.startTime = start;
@@ -15,8 +21,7 @@ public class Shift implements Comparable<Shift> {
     }
 
     /**
-     * Følgende verdier skal defineres i konstruktøren:
-     * shiftCode, startTime, endTime
+     * Konstruktør som auto-genererer skiftkode, start-tid og slutt-tid
      */
     public Shift() {
         this.shiftCode = generateShiftCode();
@@ -28,9 +33,9 @@ public class Shift implements Comparable<Shift> {
     /**
      * Lager et LocalDateTime objekt fra timer og minutter
      *
-     * @param hrs
-     * @param min
-     * @return time
+     * @param hrs 0-23
+     * @param min 0-59
+     * @return time LocalDateTime objekt med datoen i dag og timer og minutter
      */
     public static LocalDateTime intToTime(final int hrs, final int min) {
         if (hrs >= 24 || hrs < 0)
@@ -50,7 +55,7 @@ public class Shift implements Comparable<Shift> {
     /**
      * Konverterer et LocalDateTime objekt til en streng som representerer tiden på en lesbar måte
      *
-     * @param time
+     * @param time LocalDateTime objekt
      * @return timeString
      */
     public static String timeToString(final LocalDateTime time) {
@@ -85,6 +90,9 @@ public class Shift implements Comparable<Shift> {
         return count;
     }
 
+    /**
+     * Øker count med 1
+     */
     public void incrementCount() {
         if (this.count + 1 < 0)
             throw new IllegalArgumentException("Count cannot be a negative number");
@@ -92,6 +100,9 @@ public class Shift implements Comparable<Shift> {
         this.count += 1;
     }
 
+    /**
+     * Reduserer count med 1
+     */
     public void decrementCount() {
         if (this.count - 1 < 0)
             throw new IllegalArgumentException("Count cannot be a negative number");
@@ -234,8 +245,8 @@ public class Shift implements Comparable<Shift> {
     /**
      * Sammenligner to Shift objekter
      *
-     * @param o
-     * @return neg om this er større enn o, pos om this er mindre enn o, og 0 hvis de er like
+     * @param o Et annet Shift objekt som blir sammenlignet med this
+     * @return negativt tall om this er større enn o, positivt tall om this er mindre enn o, og 0 hvis de er like
      */
     @Override
     public int compareTo(Shift o) {
@@ -251,7 +262,7 @@ public class Shift implements Comparable<Shift> {
     /**
      * Sekunder fra midnatt til oppgitte LocalDateTimeObjekt
      *
-     * @param time
+     * @param time LocalDateTime objekt
      * @return seconds
      */
     private long localDateTimeToSeconds(LocalDateTime time) {
@@ -263,14 +274,17 @@ public class Shift implements Comparable<Shift> {
         return timeSeconds - midnightSeconds;
     }
 
-    // Valideringsmetoder
-
     /**
-     * @Override public String toString() {
-     * return getShiftCode() + ": [" + getStartTime() + " -> " + getEndTime() + "]"
-     * + "\nCount: " + getCount();
-     * }
-     */
+    * Lager en lesbar representasjon av Shift objektet
+    * @return String
+    */
+    /**
+    @Override public String toString() {
+        return getShiftCode() + ": [" + getStartTime() + " -> " + getEndTime() + "]"
+        + "\nCount: " + getCount();
+    }
+    */
+    // Valideringsmetoder
 
     private void shiftCodeValidation(String shiftCode) {
         if (shiftCode == null || shiftCode.isBlank())
@@ -282,18 +296,17 @@ public class Shift implements Comparable<Shift> {
             throw new IllegalArgumentException("model.Shift code is invalid: " + shiftCode);
     }
 
-    /**
-     * Sjekker om shiftCode samsvarer med dag og klokkeslett
-     *
-     * @param shiftCode
-     * @return
-     */
     private boolean isValidShiftCode(String shiftCode) {
         return true;
     }
 
-    private void timeValidation(LocalDateTime endTime) {
-        if (endTime == null)
-            throw new IllegalArgumentException("End time cannot be null");
+
+    /**
+     * Validering av LocalDateTime objekt
+     * @param time tid
+     */
+    private void timeValidation(LocalDateTime time) {
+        if (time == null)
+            throw new IllegalArgumentException("Time cannot be null");
     }
 }

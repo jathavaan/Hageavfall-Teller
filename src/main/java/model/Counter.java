@@ -2,7 +2,6 @@ package model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class Counter {
     }
 
     public boolean clearShiftList() {
-        if (LocalDateTime.now().isEqual(Shift.intToTime(0, 0))) {
+        if (LocalDateTime.now().isAfter(Shift.intToTime(15, 00))) {
             shiftList.clear();
             return true;
         }
@@ -40,16 +39,10 @@ public class Counter {
     }
 
     public Shift currentShift() {
-        Iterator<Shift> it = getShiftList().iterator();
+        if (this.shiftList.size() == 0)
+            return null;
 
-        while (it.hasNext()) {
-            Shift shift = it.next();
-            if (!it.hasNext()) {
-                return shift;
-            }
-        }
-
-        return null;
+        return this.shiftList.get(this.shiftList.size() - 1);
     }
 
     public ArrayList<Shift> getShiftList() {
