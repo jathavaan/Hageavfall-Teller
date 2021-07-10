@@ -1,107 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-            style="-fx-background-color: #D3F5CC;" xmlns="http://javafx.com/javafx/16"
-            fx:controller="fxui.GUIController">
-    <center>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <children>
-                <GridPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxui.GUIController">
+    <children>
+        <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <GridPane style="-fx-background-color: #D3F5CC;" BorderPane.alignment="CENTER">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" percentWidth="50.0"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" percentWidth="50.0"
-                                           prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" percentHeight="20.0"
-                                        vgrow="SOMETIMES"/>
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" vgrow="SOMETIMES"/>
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" percentHeight="20.0"
-                                        vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Text fx:id="firstShiftNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A"
-                              textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Century Gothic" size="24.0"/>
-                            </font>
-                        </Text>
-                        <Text fx:id="secondShiftNameLabel" layoutX="137.0" layoutY="52.0" strokeType="OUTSIDE"
-                              strokeWidth="0.0" text="N/A" textAlignment="CENTER" GridPane.columnIndex="1"
-                              GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Century Gothic" size="24.0"/>
-                            </font>
-                        </Text>
-                        <Text fx:id="firstShiftCountLabel" layoutX="310.0" layoutY="52.0" strokeType="OUTSIDE"
-                              strokeWidth="0.0" text="N/A" textAlignment="CENTER" GridPane.halignment="CENTER"
-                              GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Century Gothic" size="24.0"/>
-                            </font>
-                        </Text>
-                        <Text fx:id="secondShiftCountLabel" layoutX="10.0" layoutY="182.0" strokeType="OUTSIDE"
-                              strokeWidth="0.0" text="N/A" textAlignment="CENTER" GridPane.columnIndex="1"
-                              GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Century Gothic" size="24.0"/>
-                            </font>
-                        </Text>
-                        <Button maxHeight="-Infinity" mnemonicParsing="false" onAction="#onIncrease" text="INCREASE"
-                                textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2"
-                                GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Century Gothic" size="14.0"/>
-                            </font>
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                            <children>
+                                <Text fx:id="firstShiftCountLabel" layoutX="93.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="113.5960693359375">
+                           <font>
+                              <Font name="Century Gothic" size="24.0" />
+                           </font></Text>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <children>
+                                <Text fx:id="secondShiftCountLabel" layoutX="93.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="114.39602661132812">
+                           <font>
+                              <Font name="Century Gothic" size="24.0" />
+                           </font></Text>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="90.0" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <children>
+                                <Text fx:id="firstShiftNameLabel" layoutX="34.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="232.54690551757812">
+                           <font>
+                              <Font name="Century Gothic Bold" size="24.0" />
+                           </font></Text>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <children>
+                                <Text fx:id="secondShiftNameLabel" layoutX="34.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N/A" textAlignment="CENTER" wrappingWidth="231.34686279296875">
+                           <font>
+                              <Font name="Century Gothic Bold" size="24.0" />
+                           </font></Text>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                     <children>
+                        <Button alignment="CENTER" layoutX="101.0" layoutY="26.0" mnemonicParsing="false" onAction="#onIncrease" text="Increase">
+                           <font>
+                              <Font name="Century Gothic" size="18.0" />
+                           </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="267.0" maxHeight="-Infinity" mnemonicParsing="false"
-                                onAction="#onDecrease" text="DECREASE" GridPane.columnIndex="1"
-                                GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Century Gothic" size="14.0"/>
-                            </font>
+                     </children></Pane>
+                        <Pane layoutX="10.0" layoutY="290.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <Button alignment="CENTER" layoutX="96.0" layoutY="26.0" mnemonicParsing="false" onAction="#onDecrease" text="Decrease">
+                           <font>
+                              <Font name="Century Gothic" size="18.0" />
+                           </font>
                         </Button>
+                     </children></Pane>
                     </children>
                 </GridPane>
-            </children>
-        </AnchorPane>
-    </center>
-    <bottom>
-        <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="600.0"
-                    BorderPane.alignment="CENTER">
-            <children>
-                <GridPane prefHeight="75.2" prefWidth="600.0" style="-fx-background-color: #000000;"
-                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                          AnchorPane.topAnchor="0.0">
+            </center>
+         <bottom>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="600.0" style="-fx-background-color: #000000;" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane layoutX="52.0" prefHeight="110.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                           percentWidth="60.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                           prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0"
-                                        vgrow="SOMETIMES"/>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
-                    <children>
-                        <Text fx:id="outputText" boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" strokeType="OUTSIDE"
-                              strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="358.0" GridPane.columnIndex="1"
-                              GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Century Gothic" size="24.0"/>
-                            </font>
-                        </Text>
-                    </children>
-                </GridPane>
-            </children>
-        </AnchorPane>
-    </bottom>
-</BorderPane>
+                     <children>
+                        <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="108.0" prefWidth="480.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <children>
+                              <Text fx:id="outputText" fill="WHITE" layoutX="1.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THIS IS TEXT" textAlignment="CENTER" wrappingWidth="478.5999298095703">
+                                 <font>
+                                    <Font name="Century Gothic" size="24.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </bottom>
+        </BorderPane>
+    </children>
+</AnchorPane>

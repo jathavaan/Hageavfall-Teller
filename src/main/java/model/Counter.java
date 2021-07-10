@@ -31,7 +31,7 @@ public class Counter {
     }
 
     public boolean clearShiftList() {
-        if (LocalDateTime.now().isAfter(Shift.intToTime(15, 00))) {
+        if (LocalDateTime.now().isAfter(Shift.intToTime(23, 59))) {
             shiftList.clear();
             return true;
         }

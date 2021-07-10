@@ -278,12 +278,12 @@ public class Shift implements Comparable<Shift> {
     * Lager en lesbar representasjon av Shift objektet
     * @return String
     */
-    /**
+
     @Override public String toString() {
         return getShiftCode() + ": [" + getStartTime() + " -> " + getEndTime() + "]"
         + "\nCount: " + getCount();
     }
-    */
+
     // Valideringsmetoder
 
     private void shiftCodeValidation(String shiftCode) {

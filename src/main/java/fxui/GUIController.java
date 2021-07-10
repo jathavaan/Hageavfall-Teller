@@ -39,8 +39,8 @@ public class GUIController implements Initializable {
             new Thread(() -> {
 
                 try {
-                    // Shift shift = new Shift();
-                    Shift shift = new Shift("Tidlig", Shift.intToTime(7, 0), Shift.intToTime(12, 20));
+                    Shift shift = new Shift();
+
                     while (true) {
 
                         if (counter.clearShiftList()) {
@@ -55,7 +55,6 @@ public class GUIController implements Initializable {
                         if (counter.getShiftList().size() > 0) {
                             if (counter.currentShift().getEndTime().isBefore(LocalDateTime.now()))
                                 shift = new Shift();
-                            // shift = new Shift("Sent", Shift.intToTime(14,15), Shift.intToTime(21,30));
                         }
 
                         if (counter.addShift(shift)) {
@@ -74,14 +73,19 @@ public class GUIController implements Initializable {
                     }
                 } catch (IllegalStateException e) {
                     outputText.setText(e.getMessage());
+                    System.out.println(e.getMessage());
                 } catch (IllegalArgumentException e) {
                     outputText.setText(e.getMessage());
+                    System.out.println(e.getMessage());
                 } catch (NullPointerException e) {
                     outputText.setText("No shift has started, try again during opening times");
+                    System.out.println(e.getMessage());
                 } catch (IndexOutOfBoundsException e) {
                     outputText.setText(e.getMessage());
+                    System.out.println(e.getMessage());
                 } catch (Exception e) {
                     outputText.setText("Something went wrong");
+                    System.out.println(e.getMessage());
                 }
 
             }).start();
