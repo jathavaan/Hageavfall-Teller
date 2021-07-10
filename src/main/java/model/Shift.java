@@ -10,9 +10,10 @@ public class Shift implements Comparable<Shift> {
 
     /**
      * Konstruktør for testing
-     * @param name skiftnavn
+     *
+     * @param name  skiftnavn
      * @param start starten av skift
-     * @param end slutten av skift
+     * @param end   slutten av skift
      */
     public Shift(String name, LocalDateTime start, LocalDateTime end) {
         this.shiftCode = name;
@@ -275,13 +276,15 @@ public class Shift implements Comparable<Shift> {
     }
 
     /**
-    * Lager en lesbar representasjon av Shift objektet
-    * @return String
-    */
+     * Lager en lesbar representasjon av Shift objektet
+     *
+     * @return String
+     */
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return getShiftCode() + ": [" + getStartTime() + " -> " + getEndTime() + "]"
-        + "\nCount: " + getCount();
+                + "\nCount: " + getCount();
     }
 
     // Valideringsmetoder
@@ -303,6 +306,7 @@ public class Shift implements Comparable<Shift> {
 
     /**
      * Validering av LocalDateTime objekt
+     *
      * @param time tid
      */
     private void timeValidation(LocalDateTime time) {

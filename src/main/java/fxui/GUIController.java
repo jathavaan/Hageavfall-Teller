@@ -16,15 +16,15 @@ public class GUIController implements Initializable {
     private final Counter counter = new Counter();
 
     @FXML
-    private final Text firstShiftNameLabel = new Text();
+    private Text firstShiftNameLabel = new Text();
     @FXML
-    private final Text secondShiftNameLabel = new Text();
+    private Text secondShiftNameLabel = new Text();
     @FXML
-    private final Text firstShiftCountLabel = new Text();
+    private Text firstShiftCountLabel = new Text();
     @FXML
-    private final Text secondShiftCountLabel = new Text();
+    private Text secondShiftCountLabel = new Text();
     @FXML
-    private final Text outputText = new Text();
+    private Text outputText = new Text();
 
     /**
      * Kjøres helt på starten av programmet
@@ -73,19 +73,14 @@ public class GUIController implements Initializable {
                     }
                 } catch (IllegalStateException e) {
                     outputText.setText(e.getMessage());
-                    System.out.println(e.getMessage());
                 } catch (IllegalArgumentException e) {
                     outputText.setText(e.getMessage());
-                    System.out.println(e.getMessage());
                 } catch (NullPointerException e) {
                     outputText.setText("No shift has started, try again during opening times");
-                    System.out.println(e.getMessage());
                 } catch (IndexOutOfBoundsException e) {
                     outputText.setText(e.getMessage());
-                    System.out.println(e.getMessage());
                 } catch (Exception e) {
                     outputText.setText("Something went wrong");
-                    System.out.println(e.getMessage());
                 }
 
             }).start();
@@ -145,9 +140,7 @@ public class GUIController implements Initializable {
                 secondShiftCountLabel.setText(String.valueOf(currentShift.getCount()));
             }
             outputText.setText("Count has been manually decreased");
-        } catch (IllegalStateException e) {
-            outputText.setText(e.getMessage());
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalStateException | IllegalArgumentException e) {
             outputText.setText(e.getMessage());
         } catch (NullPointerException e) {
             outputText.setText("No shift has started, try again during opening times");
@@ -164,9 +157,7 @@ public class GUIController implements Initializable {
             } else if (counter.getShiftList().size() > 1) {
                 secondShiftCountLabel.setText("");
             }
-        } catch (IllegalStateException e) {
-            outputText.setText(e.getMessage());
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalStateException | IllegalArgumentException e) {
             outputText.setText(e.getMessage());
         } catch (NullPointerException e) {
             outputText.setText("No shift has started, try again during opening times");
