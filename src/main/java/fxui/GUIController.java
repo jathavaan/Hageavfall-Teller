@@ -71,14 +71,10 @@ public class GUIController implements Initializable {
 
                         TimeUnit.MILLISECONDS.sleep(500L);
                     }
-                } catch (IllegalStateException e) {
-                    outputText.setText(e.getMessage());
-                } catch (IllegalArgumentException e) {
+                } catch (IllegalStateException | IllegalArgumentException e) {
                     outputText.setText(e.getMessage());
                 } catch (NullPointerException e) {
                     outputText.setText("No shift has started, try again during opening times");
-                } catch (IndexOutOfBoundsException e) {
-                    outputText.setText(e.getMessage());
                 } catch (Exception e) {
                     outputText.setText("Something went wrong");
                 }
@@ -108,9 +104,7 @@ public class GUIController implements Initializable {
                 secondShiftCountLabel.setText(String.valueOf(currentShift.getCount()));
             }
             outputText.setText("Count has been manually increased");
-        } catch (IllegalStateException e) {
-            outputText.setText(e.getMessage());
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalStateException | IllegalArgumentException e) {
             outputText.setText(e.getMessage());
         } catch (NullPointerException e) {
             outputText.setText("No shift has started, try again during opening times");
