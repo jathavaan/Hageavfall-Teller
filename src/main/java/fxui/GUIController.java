@@ -43,7 +43,7 @@ public class GUIController implements Initializable {
 
                     while (true) {
 
-                        if (counter.clearShiftList()) {
+                        if (counter.clearShiftList(23, 59)) {
                             outputText.setText("Cleared shift list");
                             firstShiftNameLabel.setText("N/A");
                             secondShiftNameLabel.setText("N/A");
@@ -67,9 +67,20 @@ public class GUIController implements Initializable {
 
                             outputText.setText("A new shift has started");
                             TimeUnit.SECONDS.sleep(5);
+                            outputText.setText("");
                         }
 
-                        TimeUnit.MILLISECONDS.sleep(500L);
+                        if (counter.currentShift() != null) {
+                            String count = String.valueOf(counter.currentShift().getCount());
+
+                            if (counter.getShiftList().size() == 1) {
+                                firstShiftCountLabel.setText(count);
+                            } else if (counter.getShiftList().size() == 2) {
+                                secondShiftCountLabel.setText(count);
+                            }
+                        }
+
+                        TimeUnit.MILLISECONDS.sleep(10L);
                     }
                 } catch (IllegalStateException | IllegalArgumentException e) {
                     outputText.setText(e.getMessage());
@@ -97,12 +108,6 @@ public class GUIController implements Initializable {
             }
 
             currentShift.incrementCount();
-            initialize(null, null);
-            if (counter.getShiftList().size() == 1) {
-                firstShiftCountLabel.setText(String.valueOf(currentShift.getCount()));
-            } else if (counter.getShiftList().size() > 1) {
-                secondShiftCountLabel.setText(String.valueOf(currentShift.getCount()));
-            }
             outputText.setText("Count has been manually increased");
         } catch (IllegalStateException | IllegalArgumentException e) {
             outputText.setText(e.getMessage());
@@ -126,13 +131,6 @@ public class GUIController implements Initializable {
 
             currentShift.decrementCount();
 
-
-            initialize(null, null);
-            if (counter.getShiftList().size() == 1) {
-                firstShiftCountLabel.setText(String.valueOf(currentShift.getCount()));
-            } else if (counter.getShiftList().size() > 1) {
-                secondShiftCountLabel.setText(String.valueOf(currentShift.getCount()));
-            }
             outputText.setText("Count has been manually decreased");
         } catch (IllegalStateException | IllegalArgumentException e) {
             outputText.setText(e.getMessage());
@@ -146,11 +144,6 @@ public class GUIController implements Initializable {
     public void registeredCar() {
         try {
             // metode som kobler opp til Rasberry PI
-            if (counter.getShiftList().size() == 1) {
-                firstShiftCountLabel.setText("");
-            } else if (counter.getShiftList().size() > 1) {
-                secondShiftCountLabel.setText("");
-            }
         } catch (IllegalStateException | IllegalArgumentException e) {
             outputText.setText(e.getMessage());
         } catch (NullPointerException e) {

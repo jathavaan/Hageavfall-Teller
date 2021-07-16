@@ -31,37 +31,6 @@ public class Shift implements Comparable<Shift> {
         this.count = 0;
     }
 
-    /**
-     * Lager et LocalDateTime objekt fra timer og minutter
-     *
-     * @param hrs 0-23
-     * @param min 0-59
-     * @return time LocalDateTime objekt med datoen i dag og timer og minutter
-     */
-    public static LocalDateTime intToTime(final int hrs, final int min) {
-        if (hrs >= 24 || hrs < 0)
-            throw new IllegalArgumentException("Invalid hour");
-
-        if (min >= 60 || min < 0)
-            throw new IllegalArgumentException("Invalid minute");
-
-        LocalDateTime now = LocalDateTime.now();
-        int year = now.getYear();
-        int month = now.getMonthValue();
-        int day = now.getDayOfMonth();
-
-        return LocalDateTime.of(year, month, day, hrs, min);
-    }
-
-    /**
-     * Konverterer et LocalDateTime objekt til en streng som representerer tiden på en lesbar måte
-     *
-     * @param time LocalDateTime objekt
-     * @return timeString
-     */
-    public static String timeToString(final LocalDateTime time) {
-        return null;
-    }
 
     /**
      * @return shiftCode
@@ -113,7 +82,6 @@ public class Shift implements Comparable<Shift> {
 
     // Generering
 
-
     /**
      * Generer shiftCode basert på hvilken dag det er og hva klokken er
      *
@@ -142,9 +110,9 @@ public class Shift implements Comparable<Shift> {
     }
 
     /**
-     * Genererer slutt-tid for skfit basert på hvilken dag det er og hva kloken er nå
+     * Genererer start-tid for skfit basert på hvilken dag det er og hva kloken er nå
      *
-     * @return endTime
+     * @return startTime
      */
     public LocalDateTime generateStartTime() {
         long secondsToday = localDateTimeToSeconds(LocalDateTime.now());
@@ -168,7 +136,7 @@ public class Shift implements Comparable<Shift> {
                     throw new IllegalStateException("Friday shift cannot start before 08:30");
 
                 if (61_200L < secondsToday)
-                    throw new IllegalStateException("Friday shift cannot start after 17:30");
+                    throw new IllegalStateException("Friday shift cannot start after 17:00");
 
                 startTime = intToTime(8, 30);
                 break;
@@ -190,8 +158,6 @@ public class Shift implements Comparable<Shift> {
         timeValidation(startTime);
         return startTime;
     }
-
-    // Konvertering
 
     /**
      * Genererer slutt-tid for skfit basert på hvilken dag det er og hva kloken er nå
@@ -220,13 +186,13 @@ public class Shift implements Comparable<Shift> {
                     throw new IllegalStateException("Friday shift cannot end before 08:30");
 
                 if (61_200L < secondsToday)
-                    throw new IllegalStateException("Friday shift cannot end after 17:30");
+                    throw new IllegalStateException("Friday shift cannot end after 17:00");
 
                 endTime = intToTime(17, 0);
                 break;
             default:
                 if (25_200L > secondsToday)
-                    throw new IllegalStateException("Shift cannot end before 7:00");
+                    throw new IllegalStateException("Shift cannot end before 07:00");
 
                 if (77_400L < secondsToday)
                     throw new IllegalStateException("Shift cannot end after 21:30");
@@ -241,6 +207,40 @@ public class Shift implements Comparable<Shift> {
 
         timeValidation(endTime);
         return endTime;
+    }
+
+    // Konvertering
+
+    /**
+     * Lager et LocalDateTime objekt fra timer og minutter
+     *
+     * @param hrs 0-23
+     * @param min 0-59
+     * @return time LocalDateTime objekt med datoen i dag og timer og minutter
+     */
+    public static LocalDateTime intToTime(final int hrs, final int min) {
+        if (hrs >= 24 || hrs < 0)
+            throw new IllegalArgumentException("Invalid hour");
+
+        if (min >= 60 || min < 0)
+            throw new IllegalArgumentException("Invalid minute");
+
+        LocalDateTime now = LocalDateTime.now();
+        int year = now.getYear();
+        int month = now.getMonthValue();
+        int day = now.getDayOfMonth();
+
+        return LocalDateTime.of(year, month, day, hrs, min);
+    }
+
+    /**
+     * Konverterer et LocalDateTime objekt til en streng som representerer tiden på en lesbar måte
+     *
+     * @param time LocalDateTime objekt
+     * @return timeString
+     */
+    public static String timeToString(final LocalDateTime time) {
+        return null;
     }
 
     /**
@@ -286,23 +286,6 @@ public class Shift implements Comparable<Shift> {
         return getShiftCode() + ": [" + getStartTime() + " -> " + getEndTime() + "]"
                 + "\nCount: " + getCount();
     }
-
-    // Valideringsmetoder
-
-    private void shiftCodeValidation(String shiftCode) {
-        if (shiftCode == null || shiftCode.isBlank())
-            throw new IllegalArgumentException("model.Shift code cannot be null or blank");
-
-        shiftCode = shiftCode.toUpperCase();
-
-        if (!isValidShiftCode(shiftCode))
-            throw new IllegalArgumentException("model.Shift code is invalid: " + shiftCode);
-    }
-
-    private boolean isValidShiftCode(String shiftCode) {
-        return true;
-    }
-
 
     /**
      * Validering av LocalDateTime objekt

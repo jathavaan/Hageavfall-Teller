@@ -2,7 +2,6 @@ package model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Counter {
@@ -30,8 +29,8 @@ public class Counter {
         return true;
     }
 
-    public boolean clearShiftList() {
-        if (LocalDateTime.now().isAfter(Shift.intToTime(23, 59))) {
+    public boolean clearShiftList(int hrs, int min) {
+        if (LocalDateTime.now().isAfter(Shift.intToTime(hrs, min))) {
             shiftList.clear();
             return true;
         }
@@ -47,25 +46,5 @@ public class Counter {
 
     public ArrayList<Shift> getShiftList() {
         return new ArrayList<>(this.shiftList);
-    }
-
-    public void run() throws InterruptedException {
-        Counter counter = new Counter();
-        Shift shift = new Shift();
-        if (counter.clearShiftList())
-            System.out.println("Cleared shift list");
-
-        if (shift.getEndTime().equals(LocalDateTime.now()))
-            shift = new Shift();
-
-        if (counter.addShift(shift)) {
-            System.out.println("Shift added: " + shift);
-        } else {
-            shift.incrementCount();
-            System.out.println(shift);
-        }
-
-        TimeUnit.SECONDS.sleep(1);
-
     }
 }
