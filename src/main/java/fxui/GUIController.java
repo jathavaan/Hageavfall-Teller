@@ -1,5 +1,6 @@
 package fxui;
 
+import com.pi4j.io.gpio.GpioPin;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
@@ -101,6 +102,7 @@ public class GUIController implements Initializable {
         try {
 
             Shift s = new Shift(); // Bare for å kunne kaste evt. feilmld
+
             Shift currentShift = counter.currentShift();
             if (currentShift == null) {
                 outputText.setText("No shifts right now! Cannot increase count");
