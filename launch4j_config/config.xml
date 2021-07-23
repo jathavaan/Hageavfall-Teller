@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>console</headerType>
+  <jar>C:\Users\jatha\Desktop\MorrisAS_Java.jar</jar>
+  <outfile>C:\Users\jatha\Desktop\Hageavfall teller.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>C:\Users\jatha\IdeaProjects\MorrisAS_Java\src\main\resources\counter.ico</icon>
+  <singleInstance>
+    <mutexName>HageavfallTeller</mutexName>
+    <windowTitle></windowTitle>
+  </singleInstance>
+  <jre>
+    <path>jre1.8.0_301</path>
+    <bundledJre64Bit>true</bundledJre64Bit>
+    <bundledJreAsFallback>true</bundledJreAsFallback>
+    <minVersion>1.8.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+    <runtimeBits>64/32</runtimeBits>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.0</fileVersion>
+    <txtFileVersion>1.0.0.0</txtFileVersion>
+    <fileDescription>Application</fileDescription>
+    <copyright>Brødrene Morris Ltd.</copyright>
+    <productVersion>1.0.0.0</productVersion>
+    <txtProductVersion>1.0.0.0</txtProductVersion>
+    <productName>Hageavfall teller</productName>
+    <companyName>Brødrene Morris Ltd.</companyName>
+    <internalName>HageavfallTeller</internalName>
+    <originalFilename>HageavfallTeller.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>NORWEGIAN_BOKMAL</language>
+  </versionInfo>
+</launch4jConfig>
