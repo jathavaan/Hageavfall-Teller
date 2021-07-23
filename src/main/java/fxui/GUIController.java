@@ -1,6 +1,7 @@
 package fxui;
 
-import com.pi4j.io.gpio.GpioPin;
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
@@ -145,7 +146,7 @@ public class GUIController implements Initializable {
 
     public void registeredCar() {
         try {
-            // metode som kobler opp til Rasberry PI
+            final GpioController gpio = GpioFactory.getInstance();
         } catch (IllegalStateException | IllegalArgumentException e) {
             outputText.setText(e.getMessage());
         } catch (NullPointerException e) {
