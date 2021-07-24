@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>console</headerType>
-  <jar>C:\Users\jatha\Desktop\MorrisAS_Java.jar</jar>
+  <jar>C:\Users\jatha\IdeaProjects\MorrisAS_Java\src\Hageavfall Teller_jar.jar</jar>
   <outfile>C:\Users\jatha\Desktop\Hageavfall teller.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
